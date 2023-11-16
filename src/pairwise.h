@@ -55,6 +55,8 @@
 #ifndef PAIRWISE_H
 #define PAIRWISE_H
 
+#include <climits>
+
 #include "distribution.h"
 #include "buildinfo.h"
 
