@@ -1,5 +1,5 @@
 #' gbm internal functions
-#' 
+#'
 #' Helper functions for preprocessing data prior to building a \code{"gbm"}
 #' object.
 #'
@@ -16,14 +16,14 @@
 #' @param w The weights.
 #' @param n The number of cores to use in the cluster.
 #' @param o The offset.
-#' 
-#' @details 
-#' These are functions used internally by \code{gbm} and not intended for direct 
+#'
+#' @details
+#' These are functions used internally by \code{gbm} and not intended for direct
 #' use by the user.
-#' 
+#'
 #' @aliases guessDist getStratify getCVgroup checkMissing checkID checkWeights
-#' checkOffset getVarNames gbmCluster
-#' 
+#' checkOffset getVarNames
+#'
 #' @rdname gbm-internals
 #' @export
 guessDist <- function(y){
@@ -39,7 +39,7 @@ guessDist <- function(y){
 
 #' @rdname gbm-internals
 #' @export
-getCVgroup <- function(distribution, class.stratify.cv, y, i.train, cv.folds, 
+getCVgroup <- function(distribution, class.stratify.cv, y, i.train, cv.folds,
                        group) {
     # Construct cross-validation groups depending on the type of model to be fit
     if (distribution$name %in% c( "bernoulli", "multinomial" ) & class.stratify.cv ){
@@ -142,14 +142,3 @@ getVarNames <- function(x){
   var.names
 }
 
-
-#' @rdname gbm-internals
-#' @export
-gbmCluster <- function(n) {
-  # If number of cores (n) not given, try to work it out from the number
-  # that appear to be available and the number of CV folds.
-  if (is.null(n)) {
-    n <- parallel::detectCores()
-  }
-  parallel::makeCluster(n)
-}

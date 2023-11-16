@@ -9,7 +9,6 @@
 \alias{checkWeights}
 \alias{checkOffset}
 \alias{getVarNames}
-\alias{gbmCluster}
 \title{gbm internal functions}
 \usage{
 guessDist(y)
@@ -27,8 +26,6 @@ checkID(id)
 checkOffset(o, y)
 
 getVarNames(x)
-
-gbmCluster(n)
 }
 \arguments{
 \item{y}{The response variable.}
@@ -61,6 +58,6 @@ Helper functions for preprocessing data prior to building a \code{"gbm"}
 object.
 }
 \details{
-These are functions used internally by \code{gbm} and not intended for direct 
+These are functions used internally by \code{gbm} and not intended for direct
 use by the user.
 }

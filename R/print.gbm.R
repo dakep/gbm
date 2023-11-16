@@ -1,32 +1,32 @@
 #' Print model summary
-#' 
+#'
 #' Display basic information about a \code{gbm} object.
-#' 
+#'
 #' Prints some information about the model object. In particular, this method
 #' prints the call to \code{gbm()}, the type of loss function that was used,
 #' and the total number of iterations.
-#' 
+#'
 #' If cross-validation was performed, the 'best' number of trees as estimated
 #' by cross-validation error is displayed. If a test set was used, the 'best'
 #' number of trees as estimated by the test set error is displayed.
-#' 
+#'
 #' The number of available predictors, and the number of those having non-zero
 #' influence on predictions is given (which might be interesting in data mining
 #' applications).
-#' 
+#'
 #' If multinomial, bernoulli or adaboost was used, the confusion matrix and
 #' prediction accuracy are printed (objects being allocated to the class with
 #' highest probability for multinomial and bernoulli). These classifications
 #' are performed on the entire training data using the model with the 'best'
 #' number of trees as described above, or the maximum number of trees if the
 #' 'best' cannot be computed.
-#' 
+#'
 #' If the 'distribution' was specified as gaussian, laplace, quantile or
 #' t-distribution, a summary of the residuals is displayed.  The residuals are
 #' for the training data with the model at the 'best' number of trees, as
 #' described above, or the maximum number of trees if the 'best' cannot be
 #' computed.
-#' 
+#'
 #' @aliases print.gbm show.gbm
 #' @param x an object of class \code{gbm}.
 #' @param \dots arguments passed to \code{print.default}.
@@ -34,11 +34,11 @@
 #' @seealso \code{\link{gbm}}
 #' @keywords models nonlinear survival nonparametric
 #' @examples
-#' 
+#'
 #' data(iris)
 #' iris.mod <- gbm(Species ~ ., distribution="multinomial", data=iris,
 #'                  n.trees=2000, shrinkage=0.01, cv.folds=5,
-#'                  verbose=FALSE, n.cores=1)
+#'                  verbose=FALSE)
 #' iris.mod
 #' #data(lung)
 #' #lung.mod <- gbm(Surv(time, status) ~ ., distribution="coxph", data=lung,
@@ -88,22 +88,22 @@ print.gbm <- function(x, ... )
 
 
 #' @rdname print.gbm
-#' 
+#'
 #' @export
 show.gbm <- print.gbm
 
 
 #' Summary of a gbm object
-#' 
+#'
 #' Computes the relative influence of each variable in the gbm object.
-#' 
+#'
 #' For \code{distribution="gaussian"} this returns exactly the reduction of
 #' squared error attributable to each variable. For other loss functions this
 #' returns the reduction attributable to each variable in sum of squared error
 #' in predicting the gradient on each iteration. It describes the relative
 #' influence of each variable in reducing the loss function. See the references
 #' below for exact details on the computation.
-#' 
+#'
 #' @param object a \code{gbm} object created from an initial call to
 #' \code{\link{gbm}}.
 #' @param cBars the number of bars to plot. If \code{order=TRUE} the only the
@@ -133,11 +133,11 @@ show.gbm <- print.gbm
 #' @seealso \code{\link{gbm}}
 #' @references J.H. Friedman (2001). "Greedy Function Approximation: A Gradient
 #' Boosting Machine," Annals of Statistics 29(5):1189-1232.
-#' 
+#'
 #' L. Breiman
 #' (2001).\url{https://www.stat.berkeley.edu/users/breiman/randomforest2001.pdf}.
 #' @keywords hplot
-#' 
+#'
 #' @export summary.gbm
 #' @export
 summary.gbm <- function(object,

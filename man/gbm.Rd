@@ -19,14 +19,13 @@ gbm(
   cv.folds = 0,
   keep.data = TRUE,
   verbose = FALSE,
-  class.stratify.cv = NULL,
-  n.cores = NULL
+  class.stratify.cv = NULL
 )
 }
 \arguments{
 \item{formula}{A symbolic description of the model to be fit. The formula
-may include an offset term (e.g. y~offset(n)+x). If 
-\code{keep.data = FALSE} in the initial call to \code{gbm} then it is the 
+may include an offset term (e.g. y~offset(n)+x). If
+\code{keep.data = FALSE} in the initial call to \code{gbm} then it is the
 user's responsibility to resupply the offset to \code{\link{gbm.more}}.}
 
 \item{distribution}{Either a character string specifying the name of the
@@ -34,26 +33,26 @@ distribution to use or a list with a component \code{name} specifying the
 distribution and any additional parameters needed. If not specified,
 \code{gbm} will try to guess: if the response has only 2 unique values,
 bernoulli is assumed; otherwise, if the response is a factor, multinomial is
-assumed; otherwise, if the response has class \code{"Surv"}, coxph is 
+assumed; otherwise, if the response has class \code{"Surv"}, coxph is
 assumed; otherwise, gaussian is assumed.
 
-Currently available options are \code{"gaussian"} (squared error), 
-\code{"laplace"} (absolute loss), \code{"tdist"} (t-distribution loss), 
-\code{"bernoulli"} (logistic regression for 0-1 outcomes), 
-\code{"huberized"} (huberized hinge loss for 0-1 outcomes), classes), 
+Currently available options are \code{"gaussian"} (squared error),
+\code{"laplace"} (absolute loss), \code{"tdist"} (t-distribution loss),
+\code{"bernoulli"} (logistic regression for 0-1 outcomes),
+\code{"huberized"} (huberized hinge loss for 0-1 outcomes), classes),
 \code{"adaboost"} (the AdaBoost exponential loss for 0-1 outcomes),
-\code{"poisson"} (count outcomes), \code{"coxph"} (right censored 
-observations), \code{"quantile"}, or \code{"pairwise"} (ranking measure 
+\code{"poisson"} (count outcomes), \code{"coxph"} (right censored
+observations), \code{"quantile"}, or \code{"pairwise"} (ranking measure
 using the LambdaMart algorithm).
 
 If quantile regression is specified, \code{distribution} must be a list of
-the form \code{list(name = "quantile", alpha = 0.25)} where \code{alpha} is 
-the quantile to estimate. The current version's quantile regression method 
+the form \code{list(name = "quantile", alpha = 0.25)} where \code{alpha} is
+the quantile to estimate. The current version's quantile regression method
 does not handle non-constant weights and will stop.
 
-If \code{"tdist"} is specified, the default degrees of freedom is 4 and 
-this can be controlled by specifying 
-\code{distribution = list(name = "tdist", df = DF)} where \code{DF} is your 
+If \code{"tdist"} is specified, the default degrees of freedom is 4 and
+this can be controlled by specifying
+\code{distribution = list(name = "tdist", df = DF)} where \code{DF} is your
 chosen degrees of freedom.
 
 If "pairwise" regression is specified, \code{distribution} must be a list of
@@ -63,22 +62,22 @@ a character vector with the column names of \code{data} that jointly
 indicate the group an instance belongs to (typically a query in Information
 Retrieval applications). For training, only pairs of instances from the same
 group and with different target labels can be considered. \code{metric} is
-the IR measure to use, one of 
-\describe{ 
-  \item{list("conc")}{Fraction of concordant pairs; for binary labels, this 
+the IR measure to use, one of
+\describe{
+  \item{list("conc")}{Fraction of concordant pairs; for binary labels, this
         is equivalent to the Area under the ROC Curve}
-  \item{:}{Fraction of concordant pairs; for binary labels, this is 
-           equivalent to the Area under the ROC Curve} 
-  \item{list("mrr")}{Mean reciprocal rank of the highest-ranked positive 
+  \item{:}{Fraction of concordant pairs; for binary labels, this is
+           equivalent to the Area under the ROC Curve}
+  \item{list("mrr")}{Mean reciprocal rank of the highest-ranked positive
         instance}
   \item{:}{Mean reciprocal rank of the highest-ranked positive instance}
-  \item{list("map")}{Mean average precision, a generalization of \code{mrr} 
+  \item{list("map")}{Mean average precision, a generalization of \code{mrr}
         to multiple positive instances}\item{:}{Mean average precision, a
         generalization of \code{mrr} to multiple positive instances}
-  \item{list("ndcg:")}{Normalized discounted cumulative gain. The score is 
-        the weighted sum (DCG) of the user-supplied target values, weighted 
-        by log(rank+1), and normalized to the maximum achievable value. This 
-        is the default if the user did not specify a metric.} 
+  \item{list("ndcg:")}{Normalized discounted cumulative gain. The score is
+        the weighted sum (DCG) of the user-supplied target values, weighted
+        by log(rank+1), and normalized to the maximum achievable value. This
+        is the default if the user did not specify a metric.}
 }
 
 \code{ndcg} and \code{conc} allow arbitrary target values, while binary
@@ -113,21 +112,21 @@ user's responsibility to resupply the weights to \code{\link{gbm.more}}.}
 predictors, indicating which variables have a monotone increasing (+1),
 decreasing (-1), or arbitrary (0) relationship with the outcome.}
 
-\item{n.trees}{Integer specifying the total number of trees to fit. This is 
-equivalent to the number of iterations and the number of basis functions in 
+\item{n.trees}{Integer specifying the total number of trees to fit. This is
+equivalent to the number of iterations and the number of basis functions in
 the additive expansion. Default is 100.}
 
-\item{interaction.depth}{Integer specifying the maximum depth of each tree 
-(i.e., the highest level of variable interactions allowed). A value of 1 
-implies an additive model, a value of 2 implies a model with up to 2-way 
+\item{interaction.depth}{Integer specifying the maximum depth of each tree
+(i.e., the highest level of variable interactions allowed). A value of 1
+implies an additive model, a value of 2 implies a model with up to 2-way
 interactions, etc. Default is 1.}
 
-\item{n.minobsinnode}{Integer specifying the minimum number of observations 
-in the terminal nodes of the trees. Note that this is the actual number of 
+\item{n.minobsinnode}{Integer specifying the minimum number of observations
+in the terminal nodes of the trees. Note that this is the actual number of
 observations, not the total weight.}
 
 \item{shrinkage}{a shrinkage parameter applied to each tree in the
-expansion. Also known as the learning rate or step-size reduction; 0.001 to 
+expansion. Also known as the learning rate or step-size reduction; 0.001 to
 0.1 usually work, but a smaller learning rate typically requires more trees.
 Default is 0.1.}
 
@@ -153,30 +152,23 @@ an index of the data stored with the object. Keeping the data and index
 makes subsequent calls to \code{\link{gbm.more}} faster at the cost of
 storing an extra copy of the dataset.}
 
-\item{verbose}{Logical indicating whether or not to print out progress and 
-performance indicators (\code{TRUE}). If this option is left unspecified for 
+\item{verbose}{Logical indicating whether or not to print out progress and
+performance indicators (\code{TRUE}). If this option is left unspecified for
 \code{gbm.more}, then it uses \code{verbose} from \code{object}. Default is
 \code{FALSE}.}
 
-\item{class.stratify.cv}{Logical indicating whether or not the 
+\item{class.stratify.cv}{Logical indicating whether or not the
 cross-validation should be stratified by class. Defaults to \code{TRUE} for
 \code{distribution = "multinomial"} and is only implemented for
 \code{"multinomial"} and \code{"bernoulli"}. The purpose of stratifying the
 cross-validation is to help avoiding situations in which training sets do
 not contain all classes.}
-
-\item{n.cores}{The number of CPU cores to use. The cross-validation loop
-will attempt to send different CV folds off to different cores. If
-\code{n.cores} is not specified by the user, it is guessed using the
-\code{detectCores} function in the \code{parallel} package. Note that the
-documentation for \code{detectCores} makes clear that it is not failsafe and
-could return a spurious number of available cores.}
 }
 \value{
 A \code{\link{gbm.object}} object.
 }
 \description{
-Fits generalized boosted regression models. For technical details, see the 
+Fits generalized boosted regression models. For technical details, see the
 vignette: \code{utils::browseVignettes("gbm")}.
 }
 \details{
@@ -204,7 +196,7 @@ minimize the AdaBoost exponential loss function.
 }
 \examples{
 #
-# A least squares regression example 
+# A least squares regression example
 #
 
 # Simulate data
@@ -215,7 +207,7 @@ X2 <- 2 * runif(N)
 X3 <- ordered(sample(letters[1:4], N, replace = TRUE), levels = letters[4:1])
 X4 <- factor(sample(letters[1:6], N, replace = TRUE))
 X5 <- factor(sample(letters[1:3], N, replace = TRUE))
-X6 <- 3 * runif(N) 
+X6 <- 3 * runif(N)
 mu <- c(-1, 0, 1, 2)[as.numeric(X3)]
 SNR <- 10  # signal-to-noise ratio
 Y <- X1 ^ 1.5 + 2 * (X2 ^ 0.5) + mu
@@ -228,10 +220,10 @@ data <- data.frame(Y, X1, X2, X3, X4, X5, X6)
 # Fit a GBM
 set.seed(102)  # for reproducibility
 gbm1 <- gbm(Y ~ ., data = data, var.monotone = c(0, 0, 0, 0, 0, 0),
-            distribution = "gaussian", n.trees = 100, shrinkage = 0.1,             
-            interaction.depth = 3, bag.fraction = 0.5, train.fraction = 0.5,  
-            n.minobsinnode = 10, cv.folds = 5, keep.data = TRUE, 
-            verbose = FALSE, n.cores = 1)  
+            distribution = "gaussian", n.trees = 100, shrinkage = 0.1,
+            interaction.depth = 3, bag.fraction = 0.5, train.fraction = 0.5,
+            n.minobsinnode = 10, cv.folds = 5, keep.data = TRUE,
+            verbose = FALSE)
 
 # Check performance using the out-of-bag (OOB) error; the OOB error typically
 # underestimates the optimal number of iterations
@@ -263,7 +255,7 @@ X2 <- 2 * runif(N)
 X3 <- ordered(sample(letters[1:4], N, replace = TRUE))
 X4 <- factor(sample(letters[1:6], N, replace = TRUE))
 X5 <- factor(sample(letters[1:3], N, replace = TRUE))
-X6 <- 3 * runif(N) 
+X6 <- 3 * runif(N)
 mu <- c(-1, 0, 1, 2)[as.numeric(X3)]
 Y <- X1 ^ 1.5 + 2 * (X2 ^ 0.5) + mu + rnorm(N, 0, sigma)
 data2 <- data.frame(Y, X1, X2, X3, X4, X5, X6)
@@ -286,7 +278,7 @@ plot(gbm1, i.var = c("X2", "X3"), n.trees = best.iter)
 plot(gbm1, i.var = 3:4, n.trees = best.iter)
 
 # Construct trivariate partial dependence plots
-plot(gbm1, i.var = c(1, 2, 6), n.trees = best.iter, 
+plot(gbm1, i.var = c(1, 2, 6), n.trees = best.iter,
      continuous.resolution = 20)
 plot(gbm1, i.var = 1:3, n.trees = best.iter)
 plot(gbm1, i.var = 2:4, n.trees = best.iter)
@@ -313,17 +305,17 @@ Boosting Machine,} \emph{Annals of Statistics} 29(5):1189-1232.
 J.H. Friedman (2002). \dQuote{Stochastic Gradient Boosting,}
 \emph{Computational Statistics and Data Analysis} 38(4):367-378.
 
-B. Kriegler (2007). Cost-Sensitive Stochastic Gradient Boosting Within a 
-Quantitative Regression Framework. Ph.D. Dissertation. University of 
-California at Los Angeles, Los Angeles, CA, USA. Advisor(s) Richard A. Berk. 
+B. Kriegler (2007). Cost-Sensitive Stochastic Gradient Boosting Within a
+Quantitative Regression Framework. Ph.D. Dissertation. University of
+California at Los Angeles, Los Angeles, CA, USA. Advisor(s) Richard A. Berk.
 url{https://dl.acm.org/citation.cfm?id=1354603}.
 
 C. Burges (2010). \dQuote{From RankNet to LambdaRank to LambdaMART: An
 Overview,} Microsoft Research Technical Report MSR-TR-2010-82.
 }
 \seealso{
-\code{\link{gbm.object}}, \code{\link{gbm.perf}}, 
-\code{\link{plot.gbm}}, \code{\link{predict.gbm}}, \code{\link{summary.gbm}}, 
+\code{\link{gbm.object}}, \code{\link{gbm.perf}},
+\code{\link{plot.gbm}}, \code{\link{predict.gbm}}, \code{\link{summary.gbm}},
 and \code{\link{pretty.gbm.tree}}.
 }
 \author{

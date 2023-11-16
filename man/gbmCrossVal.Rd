@@ -11,7 +11,6 @@
 gbmCrossVal(
   cv.folds,
   nTrain,
-  n.cores,
   class.stratify.cv,
   data,
   x,
@@ -45,7 +44,6 @@ gbmCrossValPredictions(
 gbmCrossValModelBuild(
   cv.folds,
   cv.group,
-  n.cores,
   i.train,
   x,
   y,
@@ -88,8 +86,6 @@ gbmDoFold(
 \item{cv.folds}{The number of cross-validation folds.}
 
 \item{nTrain}{The number of training samples.}
-
-\item{n.cores}{The number of cores to use.}
 
 \item{class.stratify.cv}{Whether or not stratified cross-validation samples
 are used.}

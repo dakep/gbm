@@ -48,7 +48,7 @@ computed.
 data(iris)
 iris.mod <- gbm(Species ~ ., distribution="multinomial", data=iris,
                  n.trees=2000, shrinkage=0.01, cv.folds=5,
-                 verbose=FALSE, n.cores=1)
+                 verbose=FALSE)
 iris.mod
 #data(lung)
 #lung.mod <- gbm(Surv(time, status) ~ ., distribution="coxph", data=lung,

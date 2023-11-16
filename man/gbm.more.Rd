@@ -14,10 +14,10 @@ gbm.more(
 )
 }
 \arguments{
-\item{object}{A \code{\link{gbm.object}} object created from an initial call 
+\item{object}{A \code{\link{gbm.object}} object created from an initial call
 to \code{\link{gbm}}.}
 
-\item{n.new.trees}{Integer specifying the number of additional trees to add 
+\item{n.new.trees}{Integer specifying the number of additional trees to add
 to \code{object}. Default is 100.}
 
 \item{data}{An optional data frame containing the variables in the model. By
@@ -35,8 +35,8 @@ user's responsibility to resupply the weights to \code{\link{gbm.more}}.}
 
 \item{offset}{A vector of offset values.}
 
-\item{verbose}{Logical indicating whether or not to print out progress and 
-performance indicators (\code{TRUE}). If this option is left unspecified for 
+\item{verbose}{Logical indicating whether or not to print out progress and
+performance indicators (\code{TRUE}). If this option is left unspecified for
 \code{gbm.more}, then it uses \code{verbose} from \code{object}. Default is
 \code{FALSE}.}
 }
@@ -48,7 +48,7 @@ Adds additional trees to a \code{\link{gbm.object}} object.
 }
 \examples{
 #
-# A least squares regression example 
+# A least squares regression example
 #
 
 # Simulate data
@@ -59,7 +59,7 @@ X2 <- 2 * runif(N)
 X3 <- ordered(sample(letters[1:4], N, replace = TRUE), levels = letters[4:1])
 X4 <- factor(sample(letters[1:6], N, replace = TRUE))
 X5 <- factor(sample(letters[1:3], N, replace = TRUE))
-X6 <- 3 * runif(N) 
+X6 <- 3 * runif(N)
 mu <- c(-1, 0, 1, 2)[as.numeric(X3)]
 SNR <- 10  # signal-to-noise ratio
 Y <- X1 ^ 1.5 + 2 * (X2 ^ 0.5) + mu
@@ -72,10 +72,10 @@ data <- data.frame(Y, X1, X2, X3, X4, X5, X6)
 # Fit a GBM
 set.seed(102)  # for reproducibility
 gbm1 <- gbm(Y ~ ., data = data, var.monotone = c(0, 0, 0, 0, 0, 0),
-            distribution = "gaussian", n.trees = 100, shrinkage = 0.1,             
-            interaction.depth = 3, bag.fraction = 0.5, train.fraction = 0.5,  
-            n.minobsinnode = 10, cv.folds = 5, keep.data = TRUE, 
-            verbose = FALSE, n.cores = 1)  
+            distribution = "gaussian", n.trees = 100, shrinkage = 0.1,
+            interaction.depth = 3, bag.fraction = 0.5, train.fraction = 0.5,
+            n.minobsinnode = 10, cv.folds = 5, keep.data = TRUE,
+            verbose = FALSE)
 
 # Check performance using the out-of-bag (OOB) error; the OOB error typically
 # underestimates the optimal number of iterations
@@ -107,7 +107,7 @@ X2 <- 2 * runif(N)
 X3 <- ordered(sample(letters[1:4], N, replace = TRUE))
 X4 <- factor(sample(letters[1:6], N, replace = TRUE))
 X5 <- factor(sample(letters[1:3], N, replace = TRUE))
-X6 <- 3 * runif(N) 
+X6 <- 3 * runif(N)
 mu <- c(-1, 0, 1, 2)[as.numeric(X3)]
 Y <- X1 ^ 1.5 + 2 * (X2 ^ 0.5) + mu + rnorm(N, 0, sigma)
 data2 <- data.frame(Y, X1, X2, X3, X4, X5, X6)
@@ -130,7 +130,7 @@ plot(gbm1, i.var = c("X2", "X3"), n.trees = best.iter)
 plot(gbm1, i.var = 3:4, n.trees = best.iter)
 
 # Construct trivariate partial dependence plots
-plot(gbm1, i.var = c(1, 2, 6), n.trees = best.iter, 
+plot(gbm1, i.var = c(1, 2, 6), n.trees = best.iter,
      continuous.resolution = 20)
 plot(gbm1, i.var = 1:3, n.trees = best.iter)
 plot(gbm1, i.var = 2:4, n.trees = best.iter)
